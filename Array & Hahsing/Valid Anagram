@@ -1,0 +1,47 @@
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+ 
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+
+Output: true
+
+Example 2:
+
+Input: s = "rat", t = "car"
+
+Output: false
+
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        //creating HashMap to store the frequency 
+        HashMap<Character,Integer> map = new HashMap<>();
+        //making the frequency map for string s
+        for(char c:s.toCharArray()){
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+
+        //decrease the frequency for the same character present in t
+        for(char c:t.toCharArray()){
+            //check if map not contains 
+            //then it means the charcter is not in s
+            if(!map.containsKey(c)){
+                return false;
+            }
+            //otherwise decrease the frequecy 
+            map.put(c,map.get(c)-1);
+            //if the frequency goes down to 0 
+            //that means the charcter frequency is high in string t
+            if(map.get(c) < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
